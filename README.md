@@ -66,7 +66,7 @@ Modelo de respuesta:
 `GET`
 
 El parámetro asset debe estar asociado al símbolo de cada activo:
-BTC, DASH, ETH, BS, PTR
+BTC, DASH, ETH, BS, PTR <br>
 Por ejemplo sería: <br>
 `http://localhost:3000/api/rates/BTC` <br>
 `http://localhost:3000/api/rates/eth` <br>
@@ -85,6 +85,8 @@ Modelo de respuesta:
 ```
 
 **Incluyamos nuevos activos:**
+Este endpoint es útil para añadir nuevos activos a la base de datos.
+Luego, podrán ser obtenidos desde los demás endpoints
 > `http://localhost/api/currencies` <br>
 `POST`
 
@@ -151,6 +153,7 @@ El `id` como parámetro de URL debe coincidir con su valir en la base
 de datos.
 > `http://localhost/api/currencies/{id}` <br>
 `PUT`
+
 Modelo de solicitud:
 ```
 {
@@ -180,7 +183,7 @@ Modelo de respuesta:
 }
 ```
 
-**¿Y si solo quiero actualiar el precio?**
+**¿Y si solo quiero actualiar el precio?** <br>
 El `id` como parámetro de URL debe coincidir con su valir en la base
 de datos.
 > `http://localhost/api/currencies/price/{id}` <br>
