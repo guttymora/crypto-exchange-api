@@ -6,10 +6,10 @@ Es necesario instalar las dependencias:
 <br>
 `npm install`
 
-Creamos una base de datos en `PostgreSQL`:
-`CREATE DATABASE CHINCHIN WITH OWNER {username}`
+Creamos una base de datos en `PostgreSQL`: <br>
+`CREATE DATABASE CHINCHIN WITH OWNER {username};`
 
-Luego, añadir un archivo `.env` que posea estas características:
+Luego, añadiremos un archivo `.env` que posea estas características:
 <br>
 `ENV=dev` <br>
 `DB_URL=localhost` <br>
@@ -20,8 +20,8 @@ Luego, añadir un archivo `.env` que posea estas características:
 `DB_MAX=20` <br>
 `DB_IDLE_TIMEOUT=1000` <br>
 `DB_CONNECTION_TIMEOUT=1000` <br>
-`TIME_ZONE=-04:00` <br>
 
 Ahora podemos iniciar la aplicación que correrá en el puerto `3000`:
+<br>
 `npm start`
 
