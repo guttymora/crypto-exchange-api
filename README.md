@@ -31,7 +31,10 @@ Ahora podemos iniciar la aplicación que correrá en el puerto `3000`:
 Con el comando: `npm start`
 
 ## Endpoints
-**Conozcamos el mercado:**
+**Conozcamos el mercado:** <br>
+Cada vez que se haga un llamado a este endpoint, automáticamente se actualizar los valores 
+en nuestra base de datos para que estén alineados al precio medio del
+mercado.
 > `http://localhost:3000/api/market` <br>
 `GET`
 
@@ -86,11 +89,125 @@ Modelo de respuesta:
 `POST`
 
 Objeto de solicitud:
-| **Input**  | **Tipo**   | **Requerido** | **Descripción**                        |
-| ---------- | :--------: | :----------:  | -------------------------------------- |
-| name       | string     | Sí            | Nombre del activo                      |
-| symbol     | string     | Sí            | Símbolo del activo                     |
-| priceUsd   | double     | Sí            | Precio en dólares del activo           |
-| status     | boolean    | No            | Define si la moneda está activa o no   |
-| maxSupply  | double     | No            | Define la cantidad máxima en el mercado|
-| tradingVolumeUsd  | double     | No            | Cantidad de transacciones del activo en las últimas 24 horas|
+| **Input**         | **Tipo**   | **Requerido** | **Descripción**                        |
+| ------------------| :--------: | :----------:  | -------------------------------------- |
+| name              | string     | Sí            | Nombre del activo                      |
+| symbol            | string     | Sí            | Símbolo del activo                     |
+| priceUsd          | double     | Sí            | Precio en dólares del activo           |
+| status            | boolean    | No            | Define si la moneda está activa o no   |
+| maxSupply         | double     | No            | Define la cantidad máxima en el mercado|
+| tradingVolumeUsd  | double     | No            | Cantidad de transacciones en las últimas 24 horas|
+
+Modeulo de respuesta:
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": {
+        "status": true,
+        "type": "crypto",
+        "createdAt": "2020-08-08T21:06:19.582Z",
+        "updatedAt": "2020-08-08T21:06:19.582Z",
+        "id": 7,
+        "name": "guttycoin",
+        "symbol": "GTC",
+        "priceUsd": 100.01,
+        "tradingVolumeUsd": null,
+        "maxSupply": null
+    }
+}
+```
+
+**Veamos los activos creados:**
+> `http://localhost/api/currencies` <br>
+`GET`
+
+Modelo de respuesta: <br>
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": [
+        {
+            "id": 7,
+            "name": "guttycoin",
+            "symbol": "GTC",
+            "priceUsd": 100.01,
+            "status": true,
+            "tradingVolumeUsd": null,
+            "maxSupply": null,
+            "type": "crypto",
+            "createdAt": "2020-08-08T21:06:19.582Z",
+            "updatedAt": "2020-08-08T21:06:19.582Z"
+        }
+    ]
+}
+```
+
+**Actualicemos los activos:** <br>
+Podemos modificar todos los valores del activo:
+`name, symbol, priceUsd, status, tradingVolumeUsd, maxSupply` <br>
+El `id` como parámetro de URL debe coincidir con su valir en la base
+de datos.
+> `http://localhost/api/currencies/{id}` <br>
+`PUT`
+Modelo de solicitud:
+```
+{
+    "name": "bitcoin2",
+    "symbol": "BTC2",
+    "priceUsd": 1154893.8798
+}
+```
+
+Modelo de respuesta:
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": {
+        "id": 1,
+        "name": "bitcoin2",
+        "symbol": "BTC2",
+        "priceUsd": 1154893.8798,
+        "status": true,
+        "tradingVolumeUsd": 4508192300.42873,
+        "maxSupply": 21000000,
+        "type": "crypto",
+        "createdAt": "2020-08-08T20:26:20.963Z",
+        "updatedAt": "2020-08-08T20:26:20.963Z"
+    }
+}
+```
+
+**¿Y si solo quiero actualiar el precio?**
+El `id` como parámetro de URL debe coincidir con su valir en la base
+de datos.
+> `http://localhost/api/currencies/price/{id}` <br>
+`PATCH`
+
+Modelo de solicitud:
+```
+{
+    "priceUsd": 11000
+}
+```
+Modelo de respuesta:
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": {
+        "id": 1,
+        "name": "bitcoin",
+        "symbol": "BTC",
+        "priceUsd": 11000,
+        "status": true,
+        "tradingVolumeUsd": 4508192300.42873,
+        "maxSupply": 21000000,
+        "type": "crypto",
+        "createdAt": "2020-08-08T20:26:20.963Z",
+        "updatedAt": "2020-08-08T20:26:20.963Z"
+    }
+}
+```
