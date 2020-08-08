@@ -26,9 +26,10 @@ TIME_ZONE=-04:00
 (Es importante que cada uno de estos valores se encuentren en el archivo.)
 <br>
 <br>
-Ahora podemos iniciar la aplicación que correrá en el puerto `3000`:
+Ahora podemos iniciar la aplicación que correrá en el puerto `3000` con
+el comando:
 <br>
-Con el comando: `npm start`
+`npm start` 🚀
 
 ## Endpoints
 **Conozcamos el mercado:** <br>
