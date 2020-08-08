@@ -32,6 +32,9 @@ class CoinCapService extends BaseService {
             }
         } catch (err) {
             console.error(`[!] CoinBaseService error: ${this.constructor.name}: ${err}`);
+            if(!err.status) {
+                err.status = HTTP_STATUS.SERVER_ERROR
+            }
             response = err;
         } finally {
             return this.handleResponse(response);
