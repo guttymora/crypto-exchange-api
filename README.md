@@ -28,11 +28,13 @@ TIME_ZONE=-04:00
 <br>
 Ahora podemos iniciar la aplicación que correrá en el puerto `3000`:
 <br>
-`npm start`
+Con el comando: `npm start`
 
 ## Endpoints
-**Conocer el mercado:**
-> `http://localhost:3000/api/market`: <br>
+**Conozcamos el mercado:**
+> `http://localhost:3000/api/market` <br>
+`GET`
+
 Modelo de respuesta:
 ```
 {
@@ -57,7 +59,9 @@ Modelo de respuesta:
 <br>
 
 **Veamos la tasa de cambio:**
-> `http://localhost:3000/api/rates/{asset}`: <br>
+> `http://localhost:3000/api/rates/{asset}` <br>
+`GET`
+
 El parámetro asset debe estar asociado al símbolo de cada activo:
 BTC, DASH, ETH, BS, PTR
 Por ejemplo sería: <br>
@@ -76,3 +80,17 @@ Modelo de respuesta:
     }
 }
 ```
+
+**Incluyamos nuevos activos:**
+> `http://localhost/api/currencies` <br>
+`POST`
+
+Objeto de solicitud:
+| **Input**  | **Tipo**   | **Requerido** | **Descripción**                        |
+| ---------- | :--------: | :----------:  | -------------------------------------- |
+| name       | string     | Sí            | Nombre del activo                      |
+| symbol     | string     | Sí            | Símbolo del activo                     |
+| priceUsd   | double     | Sí            | Precio en dólares del activo           |
+| status     | boolean    | No            | Define si la moneda está activa o no   |
+| maxSupply  | double     | No            | Define la cantidad máxima en el mercado|
+| tradingVolumeUsd  | double     | No            | Cantidad de transacciones del activo en las últimas 24 horas|
