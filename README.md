@@ -11,17 +11,68 @@ Creamos una base de datos en `PostgreSQL`: <br>
 
 Luego, añadiremos un archivo `.env` que posea estas características:
 <br>
-`ENV=dev` <br>
-`DB_URL=localhost` <br>
-`DB_PORT=5432` <br>
-`DB_USERNAME={username}` <br>
-`DB_PASSWORD={password}` <br>
-`DB_NAME=chinchin` <br>
-`DB_MAX=20` <br>
-`DB_IDLE_TIMEOUT=1000` <br>
-`DB_CONNECTION_TIMEOUT=1000` <br>
-
+```
+ENV=dev
+DB_URL=localhost
+DB_PORT=5432
+DB_USERNAME={username}
+DB_PASSWORD={password}
+DB_NAME=chinchin
+DB_MAX=20
+DB_IDLE_TIMEOUT=1000
+DB_CONNECTION_TIMEOUT=1000
+TIME_ZONE=-04:00
+```
+(Es importante que cada uno de estos valores se encuentren en el archivo.)
+<br>
+<br>
 Ahora podemos iniciar la aplicación que correrá en el puerto `3000`:
 <br>
 `npm start`
 
+## Endpoints
+**Conocer el mercado:**
+> `http://localhost:3000/api/market`: <br>
+Modelo de respuesta:
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": [
+        {
+            "id": 1,
+            "name": "bitcoin",
+            "symbol": "BTC",
+            "priceUsd": 11723.000855116461,
+            "status": true,
+            "tradingVolumeUsd": 4508192300.428729,
+            "maxSupply": 21000000,
+            "type": "crypto",
+            "createdAt": "2020-08-08T20:26:20.963Z",
+            "updatedAt": "2020-08-08T20:26:20.963Z"
+        },
+    ]
+}
+```
+<br>
+
+**Veamos la tasa de cambio:**
+> `http://localhost:3000/api/rates/{asset}`: <br>
+El parámetro asset debe estar asociado al símbolo de cada activo:
+BTC, DASH, ETH, BS, PTR
+Por ejemplo sería: <br>
+`http://localhost:3000/api/rates/BTC` <br>
+`http://localhost:3000/api/rates/eth` <br>
+(Es indiferente si el símbolo está en mayúscula o minúscula) <br>
+Modelo de respuesta:
+```
+{
+    "rc": 0,
+    "msg": "Process OK",
+    "bean": {
+        "name": "bitcoin",
+        "symbol": "BTC",
+        "priceUsd": 11756.981223520537
+    }
+}
+```
