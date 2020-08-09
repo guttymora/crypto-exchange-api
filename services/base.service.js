@@ -16,6 +16,8 @@ class BaseService {
                     msg: 'Service not found',
                 };
             case HTTP_STATUS.SERVER_ERROR:
+            case HTTP_STATUS.CONNECTION_REFUSED:
+            default:
                 return {
                     rc: RESPONSE_CODES.SERVER_ERROR,
                     msg: 'Error in third-party service',

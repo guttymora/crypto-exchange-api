@@ -14,6 +14,9 @@ class CoinCapService extends BaseService {
         try {
             response = await axios.get(BASE_URL + ENDPOINT);
         } catch (err) {
+            if(err.code && err.code === ''){
+                err.status = HTTP_STATUS.CONNECTION_REFUSED;
+            }
             console.error(`[!] CoinBaseService error: ${this.constructor.name}: ${err}`);
             response = err;
         } finally {
