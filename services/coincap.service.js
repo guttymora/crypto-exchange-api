@@ -14,11 +14,11 @@ class CoinCapService extends BaseService {
         try {
             response = await axios.get(BASE_URL + ENDPOINT);
         } catch (err) {
-            if(err.code && err.code === ''){
-                err.status = HTTP_STATUS.CONNECTION_REFUSED;
+            if(!err.response.status) {
+                err.response.status = HTTP_STATUS.CONNECTION_REFUSED;
             }
-            console.error(`[!] CoinBaseService error: ${this.constructor.name}: ${err}`);
-            response = err;
+            console.error(`[!] CoinCapService error: ${this.constructor.name}: ${err}`);
+            response = err.response;
         } finally {
             return this.handleResponse(response);
         }
@@ -34,11 +34,11 @@ class CoinCapService extends BaseService {
                 response.status = HTTP_STATUS.NOT_FOUND
             }
         } catch (err) {
-            console.error(`[!] CoinBaseService error: ${this.constructor.name}: ${err}`);
-            if(!err.status) {
-                err.status = HTTP_STATUS.SERVER_ERROR
+            if(!err.response.status) {
+                err.response.status = HTTP_STATUS.CONNECTION_REFUSED;
             }
-            response = err;
+            console.error(`[!] CoinCapService error: ${this.constructor.name}: ${err}`);
+            response = err.response;
         } finally {
             return this.handleResponse(response);
         }
